@@ -2,7 +2,7 @@
 /*
 Plugin Name: KRN - Trendyol Entegrasyonu From ByTaika
 Description: Trendyol ürünlerini WooCommerce mağazanıza entegre eder. From ByTaika
-Version: 1.2
+Version: 1.3
 Author: ByTaika
 */
 
