@@ -1,10 +1,27 @@
 <?php
 /*
-Plugin Name: KRN - Trendyol Entegrasyonu From ByTaika
-Description: Trendyol ürünlerini WooCommerce mağazanıza entegre eder. From ByTaika
-Version: 1.4
-Author: ByTaika
+Plugin Name: Bytaika Trendyol
+Plugin URI: https://github.com/ByTaika/bytaika-trendyol
+Description: Trendyol entegrasyon eklentisi.
+Version: 1.5
+Author: Serhat Kıran
+Author URI: https://bytaika.com
+License: GPLv2 or later
+Text Domain: bytaika-trendyol
 */
+
+require_once plugin_dir_path(__FILE__) . 'vendor/yahnis-elsts/plugin-update-checker/plugin-update-checker.php';
+
+if (class_exists('Puc_v5_Factory')) {
+    $updateChecker = Puc_v5_Factory::buildUpdateChecker(
+        'https://github.com/ByTaika/bytaika-trendyol/',
+        __FILE__,
+        'bytaika-trendyol'
+    );
+    $updateChecker->getVcsApi()->enableReleaseAssets();
+} else {
+    error_log('Plugin Update Checker sınıfı yüklenemedi!');
+}
 
 if (!defined('ABSPATH')) exit;
 
@@ -235,15 +252,3 @@ add_action('krn_trendyol_daily_stock_update', function () {
         krn_trendyol_update_stocks();
     }
 });
-
-
-require plugin_dir_path(__FILE__) . 'plugin-update-checker/plugin-update-checker.php';
-
-$updateChecker = Puc_v4_Factory::buildUpdateChecker(
-    'https://github.com/kullaniciadi/krn-trendyol/', // GitHub repo URL'in
-    __FILE__,
-    'krn-trendyol'
-);
-
-// Eğer GitHub release tag'larını kullanıyorsan:
-$updateChecker->getVcsApi()->enableReleaseAssets();
