@@ -3,25 +3,22 @@
 Plugin Name: Bytaika Trendyol
 Plugin URI: https://github.com/ByTaika/bytaika-trendyol
 Description: Trendyol entegrasyon eklentisi.
-Version: 1.5
+Version: 1.0.1
 Author: Serhat Kıran
 Author URI: https://bytaika.com
 License: GPLv2 or later
 Text Domain: bytaika-trendyol
 */
-
 require_once plugin_dir_path(__FILE__) . 'vendor/yahnis-elsts/plugin-update-checker/plugin-update-checker.php';
 
-if (class_exists('Puc_v5_Factory')) {
-    $updateChecker = Puc_v5_Factory::buildUpdateChecker(
-        'https://github.com/ByTaika/bytaika-trendyol/',
-        __FILE__,
-        'bytaika-trendyol'
-    );
-    $updateChecker->getVcsApi()->enableReleaseAssets();
-} else {
-    error_log('Plugin Update Checker sınıfı yüklenemedi!');
-}
+use YahnisElsts\PluginUpdateChecker\v5\PucFactory;
+
+$myUpdateChecker = PucFactory::buildUpdateChecker(
+    'https://github.com/ByTaika/bytaika-trendyol/',
+    __FILE__,
+    'bytaika-trendyol'
+);
+
 
 if (!defined('ABSPATH')) exit;
 
