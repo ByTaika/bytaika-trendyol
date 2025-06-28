@@ -1,9 +1,9 @@
 <?php
 /*
-Plugin Name: Bytaika Trendyol
+Plugin Name: ByTaika Trendyol
 Plugin URI: https://github.com/ByTaika/bytaika-trendyol
 Description: Trendyol entegrasyon eklentisi.
-Version: 1.0.1
+Version: 1.6
 Author: Serhat Kıran
 Author URI: https://bytaika.com
 License: GPLv2 or later
