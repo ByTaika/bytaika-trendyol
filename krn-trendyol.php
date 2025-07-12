@@ -197,7 +197,7 @@ add_action('wp_ajax_krn_test_api', function () {
     if (isset($test['content'])) {
         wp_send_json(['success' => true]);
     } else {
-        wp_send_json(['success' => false, 'message' => $test['error'] ?? 'Bilinmeyen hata']);
+        wp_send_json(['success' => false, 'message' => $test ?? 'Bilinmeyen hata']);
     }
 });
 
