@@ -1,24 +1,19 @@
 <?php
 /*
-Plugin Name: ByTaika Trendyol
-Plugin URI: https://github.com/ByTaika/bytaika-trendyol
-Description: Trendyol entegrasyon eklentisi.
-Version: 2
-Author: Serhat Kıran
-Author URI: https://bytaika.com
-License: GPLv2 or later
-Text Domain: bytaika-trendyol
+Plugin URI: https://bytaika.com/krn-trendyol
+Description: Trendyol ürünlerini API üzerinden çekerek WooCommerce mağazanıza otomatik olarak aktarır, stok günceller ve yönetimi kolaylaştırır. Gelişmiş filtreleme, cron desteği ve görsel eşleştirme ile tam otomasyon sağlar.
+Version: 1.2.1
+Author: ByTaika Software Solutions
+Author URI: https://web.bytaika.com
+License: GPLv3
+License URI: https://www.gnu.org/licenses/gpl-3.0.html
+Text Domain: krn-trendyol
+Domain Path: /languages
+Tags: woocommerce, trendyol, entegrasyon, stok yönetimi, ürün senkronizasyonu, otomatik import
+Requires at least: 5.8
+Tested up to: 6.8.2
+Requires PHP: 7.4
 */
-require_once plugin_dir_path(__FILE__) . 'vendor/yahnis-elsts/plugin-update-checker/plugin-update-checker.php';
-
-use YahnisElsts\PluginUpdateChecker\v5\PucFactory;
-
-$myUpdateChecker = PucFactory::buildUpdateChecker(
-    'https://github.com/ByTaika/bytaika-trendyol/',
-    __FILE__,
-    'bytaika-trendyol'
-);
-
 
 if (!defined('ABSPATH')) exit;
 
@@ -190,16 +185,45 @@ function krn_trendyol_stock_update_step() {
     ]);
 }
 
-add_action('wp_ajax_krn_test_api', function () {
-    $creds = krn_trendyol_get_credentials();
-    $test = krn_trendyol_api_request("products?page=0&size=1");
+add_action('wp_ajax_krn_test_api', 'krn_test_api_callback');
 
-    if (isset($test['content'])) {
-        wp_send_json(['success' => true]);
-    } else {
-        wp_send_json(['success' => false, 'message' => $test ?? 'Bilinmeyen hata']);
+function krn_test_api_callback() {
+    if (!current_user_can('manage_options')) {
+        wp_send_json_error(['message' => 'Yetkisiz erişim']);
     }
-});
+
+    $creds = krn_trendyol_get_credentials();
+    $supplier_id = $creds['supplier_id'];
+    $client_id = $creds['api_key'];
+    $client_secret = $creds['api_secret'];
+
+    if (!$supplier_id || !$client_id || !$client_secret) {
+        wp_send_json_error(['message' => 'Eksik ayar var']);
+    }
+
+     $url = "https://apigw.trendyol.com/integration/product/sellers/{$supplier_id}/products?page=0&size=1";
+
+    $response = wp_remote_get($url, [
+        'headers' => [
+            'Authorization' => 'Basic ' . base64_encode($client_id . ':' . $client_secret),
+            'Content-Type'  => 'application/json'
+        ],
+        'timeout' => 20,
+    ]);
+
+    if (is_wp_error($response)) {
+        wp_send_json_error(['message' => $response->get_error_message()]);
+    }
+
+    $body = wp_remote_retrieve_body($response);
+    $json = json_decode($body, true);
+
+    if (is_array($json) && isset($json['content'])) {
+        wp_send_json_success();
+    } else {
+        wp_send_json_error(['message' => $json['message'] ?? 'Beklenmeyen yanıt']);
+    }
+}
 
 // CSV dışa aktarım
 add_action('wp_ajax_krn_export_products_csv', function () {
