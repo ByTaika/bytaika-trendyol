@@ -1,7 +1,8 @@
 <?php
 /*
+Plugin Name: KRN - Trendyol WooCommerce Entegrasyonu
 Plugin URI: https://bytaika.com/krn-trendyol
-Description: Trendyol ürünlerini API üzerinden çekerek WooCommerce mağazanıza otomatik olarak aktarır, stok günceller ve yönetimi kolaylaştırır. Gelişmiş filtreleme, cron desteği ve görsel eşleştirme ile tam otomasyon sağlar.
+Description: Trendyol ürünlerini API üzerinden çekerek WooCommerce mağazanıza otomatik olarak aktarır. Ürün senkronizasyonu, cron tabanlı stok güncellemeleri ve gelişmiş yönetim paneli ile tam otomasyon sağlar.
 Version: 1.2.2
 Author: ByTaika Software Solutions
 Author URI: https://web.bytaika.com
@@ -9,7 +10,7 @@ License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 Text Domain: krn-trendyol
 Domain Path: /languages
-Tags: woocommerce, trendyol, entegrasyon, stok yönetimi, ürün senkronizasyonu, otomatik import
+Tags: woocommerce, trendyol, entegrasyon, ürün aktarımı, stok senkronizasyonu, cron, otomatik güncelleme
 Requires at least: 5.8
 Tested up to: 6.8.2
 Requires PHP: 7.4
