@@ -1,15 +1,19 @@
-=== KRN - Trendyol Entegrasyonu ===
-Contributors: krn_digital
-Tags: woocommerce, trendyol, entegrasyon
-Requires at least: 5.8
-Tested up to: 6.5
-Stable tag: 1.1
+# KRN - Trendyol Entegrasyonu (ByTaika)
 
-== Description ==
-Trendyol ürünlerini WooCommerce mağazanıza entegre eder.
+Bu WordPress eklentisi ile Trendyol ürünlerinizi WooCommerce mağazanıza senkronize edin. Otomatik aktarım, cron ile stok güncelleme, görsel eşleştirme gibi özellikler içerir.
 
-== Changelog ==
-= 1.1 =
-* Otomatik stok güncelleme özelliği eklendi
-* Ayarlar sayfasında saat seçimi ve API testi geldi
-* CSV dışa aktarma eklendi
+## 🚀 Özellikler
+- Trendyol API ile ürünleri otomatik çekme
+- 50'şerlik batch aktarım
+- Görsel eşleştirme ve kategori desteği
+- Cron tabanlı stok güncelleme
+- CSV dışa aktarım
+
+## ⚙️ Kurulum
+1. Eklentiyi yükleyin ve etkinleştirin
+2. Ayarlar panelinden Trendyol bilgilerinizi girin
+3. Ürün aktarımı menüsünden başlatın
+
+## 👨‍💻 Geliştirici
+**ByTaika**
+https://web.bytaika.com

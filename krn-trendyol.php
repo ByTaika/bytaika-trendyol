@@ -2,7 +2,7 @@
 /*
 Plugin URI: https://bytaika.com/krn-trendyol
 Description: Trendyol ürünlerini API üzerinden çekerek WooCommerce mağazanıza otomatik olarak aktarır, stok günceller ve yönetimi kolaylaştırır. Gelişmiş filtreleme, cron desteği ve görsel eşleştirme ile tam otomasyon sağlar.
-Version: 1.2.1
+Version: 1.2.2
 Author: ByTaika Software Solutions
 Author URI: https://web.bytaika.com
 License: GPLv3
@@ -16,6 +16,19 @@ Requires PHP: 7.4
 */
 
 if (!defined('ABSPATH')) exit;
+
+
+require_once plugin_dir_path(__FILE__) . 'vendor/yahnis-elsts/plugin-update-checker/plugin-update-checker.php';
+
+use YahnisElsts\PluginUpdateChecker\v5\PucFactory;
+
+$myUpdateChecker = PucFactory::buildUpdateChecker(
+    'https://github.com/ByTaika/bytaika-trendyol/',
+    __FILE__,
+    'bytaika-trendyol'
+);
+
+
 
 // Dosyaları dahil et
 require_once plugin_dir_path(__FILE__) . 'includes/trendyol-api.php';
